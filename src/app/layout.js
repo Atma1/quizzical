@@ -1,9 +1,9 @@
-import {Inter} from 'next/font/google';
+import {Karla} from 'next/font/google';
 import './globals.css';
 // import BackgroundSVG from './components/BackgroundSVG';
 
 // eslint-disable-next-line new-cap
-const inter = Inter({subsets: ['latin']});
+const karla = Karla({subsets: ['latin']});
 
 export const metadata = {
   title: 'Quizzical',
@@ -14,7 +14,7 @@ export default function RootLayout({children}) {
   return (
     <html lang="en">
       {/* <BackgroundSVG /> */}
-      <body className={inter.className}>{children}</body>
+      <body className={karla.className}>{children}</body>
     </html>
   );
 }
