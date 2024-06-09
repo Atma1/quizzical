@@ -67,8 +67,8 @@ svg {
 
 .questions-container {
   margin-top: 5rem;
-  margin-left: 75px;
-  margin-right: 168px;
+  margin-left: 250px;
+  margin-right: 300px;
 }
 
 .question-title {
@@ -80,11 +80,6 @@ svg {
   border-bottom: 1px;
   border-color: #DBDEF0;
   border-bottom-style: solid;
-}
-
-.question-radio-container {
-  margin-bottom: 1rem;
-  margin-top: 1rem;
 }
 
 .question-radio {
@@ -110,6 +105,8 @@ svg {
   display: flex;
   flex-wrap: wrap;
   justify-content:space-between;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .question-endgame-button {
@@ -121,13 +118,14 @@ svg {
   height: 35px;
   margin-top: 20px;
   cursor: pointer;
+  margin: 27px 168px 40px 75px;
 }
 
 .question-restart-container {
   display: flex;
   align-items: center;
-  margin: 27px 168px 40px 75px;
-  justify-items: center;
+  flex-direction: column;
+  margin-top: 4em;
 }
 
 .question-correct-answer {
@@ -146,7 +144,10 @@ svg {
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 14px;
+  border-radius: 15px;
   width: 180px;
-  height: 30px;
+  height: 40px;
+  padding-top: 7px;
+  text-align: center;
+  margin-top: 15px;
 }
