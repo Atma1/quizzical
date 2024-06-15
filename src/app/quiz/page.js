@@ -6,26 +6,26 @@ import {nanoid} from 'nanoid';
 import {decode} from 'html-entities';
 import Link from 'next/link';
 
+const shuffleArray = (array) => (
+  array.sort(() => Math.random() - 0.5)
+);
+
+const correctAnswer = (questionArray) => {
+  let correct = 0;
+  questionArray.forEach((questionObject) => {
+    if (questionObject.selectedAnswer == questionObject.correctAnswer) {
+      correct += 1;
+    }
+  });
+  return correct;
+};
+
+
 const OTDBAPI = 'https://opentdb.com/api.php?amount=5';
 
 export default function Quiz() {
   const [endQuiz, setEndQuiz] = React.useState(false);
   const [questionArray, setQuestionArray] = React.useState([]);
-
-  const shuffleArray = (array) => (
-    array.sort(() => Math.random() - 0.5)
-  );
-
-
-  const correctAnswer = (questionArray) => {
-    let correct = 0;
-    questionArray.forEach((questionObject) => {
-      if (questionObject.selectedAnswer == questionObject.correctAnswer) {
-        correct += 1;
-      }
-    });
-    return correct;
-  };
 
   React.useEffect(() => {
     const controller = new AbortController();
@@ -70,7 +70,8 @@ export default function Quiz() {
     };
   }, []);
 
-  const handleClick = (clickedQuestionId, selectedQuestionIdx) => {
+  const handleClick = (clickedQuestionId, selectedQuestionIdx, endGame) => {
+    if (endGame) return;
     const updatedQuestionArray = questionArray.map((questionObject) => ({
       ...questionObject,
       'selectedAnswerIdx': questionObject.questionId == clickedQuestionId ?
