@@ -42,16 +42,32 @@ export default function Quiz() {
         selectedAnswer: undefined,
       };
     };
-    try {
-      fetch(OTDBAPI, {signal: controller.signal})
-          .then((result) => result.json())
-          .then((resJSON) => resJSON.results.map((object) =>
-            generateNewQuestionObject(object)))
-          .then((questionObjects) => setQuestionArray(questionObjects));
-      return () => controller.abort();
-    } catch (error) {
-      console.error(error);
-    }
+    fetch(OTDBAPI, {signal: controller.signal})
+        .then((result) => {
+          if (!controller.signal.aborted) {
+            return result.json();
+          }
+        })
+        .then((resJSON) => {
+          if (resJSON) {
+            return resJSON.results.map((object) => generateNewQuestionObject(object));
+          }
+        })
+        .then((questionObjects) => {
+          if (questionObjects) {
+            setQuestionArray(questionObjects);
+          }
+        })
+        .catch((error) => {
+          if (error.name === 'AbortError') {
+            console.log('Fetch aborted');
+          } else {
+            console.error('Fetch error: ', error);
+          }
+        });
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   const handleClick = (clickedQuestionId, selectedQuestionIdx) => {
