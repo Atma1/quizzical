@@ -5,6 +5,7 @@ import Question from '../components/Question';
 import {nanoid} from 'nanoid';
 import {decode} from 'html-entities';
 import Link from 'next/link';
+import Loading from './loading';
 
 const shuffleArray = (array) => (
   array.sort(() => Math.random() - 0.5)
@@ -20,12 +21,12 @@ const correctAnswer = (questionArray) => {
   return correct;
 };
 
-
 const OTDBAPI = 'https://opentdb.com/api.php?amount=5';
 
 export default function Quiz() {
   const [endQuiz, setEndQuiz] = React.useState(false);
   const [questionArray, setQuestionArray] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     const controller = new AbortController();
@@ -56,6 +57,7 @@ export default function Quiz() {
         .then((questionObjects) => {
           if (questionObjects) {
             setQuestionArray(questionObjects);
+            setIsLoading(false);
           }
         })
         .catch((error) => {
@@ -69,6 +71,10 @@ export default function Quiz() {
       controller.abort();
     };
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const handleClick = (clickedQuestionId, selectedQuestionIdx, endGame) => {
     if (endGame) return;
