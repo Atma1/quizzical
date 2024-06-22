@@ -5,7 +5,7 @@ import Question from '../components/Question';
 import {nanoid} from 'nanoid';
 import {decode} from 'html-entities';
 import Link from 'next/link';
-import Loading from './loading';
+import Loading from '../components/loading';
 
 const shuffleArray = (array) => (
   array.sort(() => Math.random() - 0.5)
