@@ -21,7 +21,7 @@ const correctAnswer = (questionArray) => {
   return correct;
 };
 
-const OTDBAPI = 'https://opentdb.com/api.php?amount=5';
+const OTDBAPI = 'https://opentdb.com/api.php?amount=5&type=multiple';
 
 export default function Quiz() {
   const [endQuiz, setEndQuiz] = React.useState(false);
